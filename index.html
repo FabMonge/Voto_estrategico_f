@@ -3,145 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Variación Electoral por Distrito</title>
+    <title>Variación Electoral por Distrito - ECData</title>
+    
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #ffffff;
-            color: #222;
-        }
-        
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 15px;
-        }
-        h2 { margin: 0; font-size: 1.3rem; color: #111; }
-        
-        /* =======================================
-           SELECTOR PERSONALIZADO (CUSTOM DROPDOWN)
-           ======================================= */
-        .controls-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 0.95rem;
-            z-index: 1000;
-        }
-        .custom-select-container {
-            position: relative;
-            width: 320px;
-            font-size: 14px;
-        }
-        .select-trigger {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 15px;
-            background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            cursor: pointer;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        .select-trigger-content {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-        }
-        .trigger-icon {
-            width: 20px; height: 20px; border-radius: 50%; object-fit: cover;
-        }
-        .options-list {
-            position: absolute;
-            top: 100%; left: 0; right: 0;
-            margin-top: 5px;
-            background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            max-height: 350px;
-            overflow-y: auto;
-            display: none;
-            z-index: 2000;
-            padding: 0; margin-bottom: 0; list-style: none;
-        }
-        .options-list.open { display: block; }
-        .option-item {
-            display: flex; align-items: center; gap: 10px;
-            padding: 12px 15px;
-            cursor: pointer;
-            border-bottom: 1px solid #f5f5f5;
-        }
-        .option-item:hover { background: #f0f8ff; }
-        .option-img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; }
-        
-        /* =======================================
-           DASHBOARD GRID Y SVGS
-           ======================================= */
-        #dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
-        }
-        .panel {
-            background: #fafafa; border: 1px solid #eaeaea; border-radius: 8px; padding: 20px;
-        }
-        .panel-title {
-            text-align: center; font-weight: 700; text-transform: uppercase;
-            font-size: 0.95rem; letter-spacing: 1px; margin-bottom: 15px; color: #444;
-        }
-        
-        .slope-line { fill: none; stroke-width: 2.5px; transition: stroke-width 0.2s ease; }
-        .data-label { font-size: 11px; font-weight: 600; dominant-baseline: middle; }
-        .pp-label { font-size: 10px; fill: #666; dominant-baseline: middle; font-weight: 400;}
-        .svg-icon { clip-path: circle(50% at 50% 50%); }
-        .label-connector { stroke: #d0d0d0; stroke-width: 1px; fill: none; stroke-dasharray: 2,2; }
-
-        .tooltip {
-            position: absolute; background: rgba(0,0,0,0.85); color: white;
-            padding: 8px 12px; border-radius: 6px; font-size: 12px;
-            pointer-events: none; opacity: 0; transition: opacity 0.2s; z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        /* =======================================
-           FOOTER INSTITUCIONAL
-           ======================================= */
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 30px;
-            padding-top: 15px;
-            border-top: 1px solid #eaeaea;
-            font-size: 0.85rem;
-            color: #555;
-        }
-        .footer-logo {
-            height: 30px; /* Ajusta el alto de tu logo según necesites */
-            width: auto;
-            object-fit: contain;
-        }
-        .footer-credits {
-        text-align: left;
-        line-height: 1.4;
-        }
-    </style>
+    
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <div class="header">
-        <h2>Distribución del voto 12 y 13 de abril - Votos emitidos</h2>
+    <header class="special-header">
+        <div class="kicker">
+            <img src="https://fabmonge.github.io/Voto_estrategico/fotos/logo_ecdata.png" alt="Logo ECData" onerror="this.style.display='none'">
+        </div>
+        
+        <h1 class="headline">El peso del voto estratégico</h1>
+        <h2 class="subheadline">¿Cómo se movió la intención de voto entre el 12 y el 13 de abril en los principales distritos?</h2>
+        
+        <div class="header-divider"></div>
+        <div class="date-published">Abril 2026</div>
+        
+        <div class="social-share-container">
+            <a href="#" class="social-btn" title="Compartir en Facebook">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"/></svg>
+            </a>
+            <a href="#" class="social-btn" title="Compartir en X (Twitter)">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" class="social-btn" title="Compartir en WhatsApp">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            </a>
+        </div>
+    </header>
+
+    <article class="story-text">
+        <p>Jorge Nieto fue el candidato que mejor aprovechó la votación en la jornada electoral extraordinaria del 13 de abril. Aumentando 11.45, 20.57 y 15.35 puntos porcentuales en Lurín, Pachacamac y San Juan de Miraflores. A su vez, la categoría de "otros", donde se agrupan la inmensa mayoría de candidatos, se redujo de manera importante en todos los casos.</p>
+    </article>
+
+    <div class="anio-titulo">Distribución del voto 12 y 13 de abril - Votos emitidos</div>
+
+
+    
+    <div class="chart-controls-container">
         <div class="controls-wrapper">
-            <label><strong>Añadir al gráfico:</strong></label>
+            <label class="dropdown-label">Añadir al gráfico:</label>
+            
             <div class="custom-select-container" id="custom-select">
                 <div class="select-trigger" id="select-trigger">
                     <div class="select-trigger-content" id="trigger-content">
@@ -149,306 +54,50 @@
                     </div>
                     <span>▼</span>
                 </div>
-                <ul class="options-list" id="options-list">
-                </ul>
+                <ul class="options-list" id="options-list"></ul>
             </div>
         </div>
     </div>
 
-    <p style="margin-bottom: 30px; font-size: 0.95rem; line-height: 1.5; color: #333;">Jorge Nieto fue el candidato que mejor aprovechó la votación en la jornada electoral extraordinaria del 13 de abril. Aumentando 11.45, 20.57 y 15.35 puntos porcentuales en Lurín, Pachacamac y San Juan de Miraflores. A su vez, la categoría de "otros" dónde se agrupan la inmensa mayoría de candidatos se redujo de manera importante en todos los casos.</p>
+    <div id="dynamic-legend" class="dynamic-legend-container"></div>
+    
 
-    <div id="dashboard"></div>
+    <div class="viz-container" id="dashboard">
+        </div>
+    
     <div id="tooltip" class="tooltip"></div>
 
-    <div class="footer">
-        <div class="footer-credits">
-            <strong>Fuente:</strong> ONPE<br>
-            <strong>Elaboración:</strong> Fabrizio Monge
-        </div>
-        <img src="fotos/logo_ecdata.png" alt="EC Data Logo" class="footer-logo">
-    </div>
+    <div class="source-note"><strong>Fuente:</strong> ONPE | <strong>Elaboración:</strong> ECData</div>
+    
+    <article class="story-text">
+        <h2>Los que perdieron votos</h2>
+        <p> Texto</p>
+    </article>
+    
+    <div class="anio-titulo">Los 5 partidos que más votos perdieron (Diferencia pp.)</div>
 
-    <script>
-        // 1. DICCIONARIO DE IMÁGENES
-        const imageAssets = {
-          "Buen Gobierno": { "logo": "fotos/partido_partido_del_buen_gobierno.jpg", "candidato": "fotos/candidato_jorge_nieto_montesinos.jpg" },
-          "Renovación Popular": { "logo": "fotos/partido_renovacion_popular.jpg", "candidato": "fotos/candidato_rafael_bernardo_lopez_aliaga_cazorla.jpg" },
-          "Fuerza Popular": { "logo": "fotos/partido_fuerza_popular.jpg", "candidato": "fotos/candidato_keiko_sofia_fujimori_higuchi.jpg" },
-          "Juntos por el Perú": { "logo": "fotos/partido_juntos_por_el_peru.jpg", "candidato": "fotos/candidato_roberto_helbert_sanchez_palomino.jpg" },
-          "OBRAS": { "logo": "fotos/partido_partido_civico_obras.jpg", "candidato": "fotos/candidato_ricardo_pablo_belmont_cassinelli.jpg" },
-          "País para Todos": { "logo": "fotos/partido_partido_pais_para_todos.jpg", "candidato": "fotos/candidato_carlos_gonsalo_alvarez_loayza.jpg" },
-          "Ahora Nación": { "logo": "fotos/partido_ahora_nacion__an.jpg", "candidato": "fotos/candidato_pablo_alfonso_lopez_chau_nava.jpg" },
-          "Primero la Gente": { "logo": "fotos/partido_primero_la_gente__comunidad_ecologia_libertad_y_progreso.jpg", "candidato": "fotos/candidato_maria_soledad_perez_tello_de_rodriguez.jpg" },
-          "SíCreo": { "logo": "fotos/partido_partido_sicreo.jpg", "candidato": "fotos/candidato_alfonso_carlos_espa_y_garcesalvear.jpg" },
-          "Frente de la Esperanza 2021": { "logo": "fotos/partido_partido_frente_de_la_esperanza_2021.jpg", "candidato": "fotos/candidato_luis_fernando_olivera_vega.jpg" },
-          "Podemos Perú": { "logo": "fotos/partido_podemos_peru.jpg", "candidato": "fotos/candidato_jose_leon_luna_galvez.jpg" },
-          "Cooperación Popular": { "logo": "fotos/partido_partido_politico_cooperacion_popular.jpg", "candidato": "fotos/candidato_yonhy_lescano_ancieta.jpg" },
-          "APP": { "logo": "fotos/partido_alianza_para_el_progreso.jpg", "candidato": "fotos/candidato_cesar_acuña_peralta.jpg" },
-          "APRA": { "logo": "fotos/partido_partido_aprista_peruano.jpg", "candidato": "fotos/candidato_pitter_enrique_valderrama_peña.jpg" },
-          "Somos Perú": { "logo": "fotos/partido_partido_democratico_somos_peru.jpg", "candidato": "fotos/candidato_george_patrick_forsyth_sommer.jpg" },
-          "Patriótico del Perú": { "logo": "fotos/partido_partido_patriotico_del_peru.jpg", "candidato": "fotos/candidato_herbert_caller_gutierrez.jpg" },
-          "Perú Primero": { "logo": "fotos/partido_partido_politico_peru_primero.jpg", "candidato": "fotos/candidato_mario_enrique_vizcarra_cornejo.jpg" },
-          "Venceremos": { "logo": "fotos/partido_alianza_electoral_venceremos.jpg", "candidato": "fotos/candidato_ronald_darwin_atencio_sotomayor.jpg" },
-          "Un Camino Diferente": { "logo": "fotos/partido_un_camino_diferente.jpg", "candidato": "fotos/candidato_rosario_del_pilar_fernandez_bazan.jpg" },
-          "Unido Perú": { "logo": "fotos/partido_partido_democrata_unido_peru.jpg", "candidato": "fotos/candidato_charlie_carrasco_salazar.jpg" },
-          "Perú Libre": { "logo": "fotos/partido_partido_politico_nacional_peru_libre.jpg", "candidato": "fotos/candidato_vladimir_roy_cerron_rojas.jpg" },
-          "Partido Morado": { "logo": "fotos/partido_partido_morado.jpg", "candidato": "fotos/candidato_mesias_antonio_guevara_amasifuen.jpg" },
-          "Unidad Nacional": { "logo": "fotos/partido_unidad_nacional.jpg", "candidato": "fotos/candidato_roberto_enrique_chiabra_leon.jpg" },
-          "Progresemos": { "logo": "fotos/partido_progresemos.jpg", "candidato": "fotos/candidato_paul_davis_jaimes_blanco.jpg" },
-          "Integridad Democrática": { "logo": "fotos/partido_partido_politico_integridad_democratica.jpg", "candidato": "fotos/candidato_wolfgang_mario_grozo_costa.jpg" },
-          "Demócrata Verde": { "logo": "fotos/partido_partido_democrata_verde.jpg", "candidato": "fotos/candidato_alex_gonzales_castillo.jpg" },
-          "Libertad Popular": { "logo": "fotos/partido_libertad_popular.jpg", "candidato": "fotos/candidato_rafael_jorge_belaunde_llosa.jpg" },
-          "Avanza País": { "logo": "fotos/partido_avanza_pais__partido_de_integracion_social.jpg", "candidato": "fotos/candidato_jose_daniel_williams_zapata.jpg" },
-          "Perú Acción": { "logo": "fotos/partido_partido_politico_peru_accion.jpg", "candidato": "fotos/candidato_francisco_ernesto_diezcanseco_távara.jpg" },
-          "Fuerza y Libertad": { "logo": "fotos/partido_fuerza_y_libertad.jpg", "candidato": "fotos/candidato_fiorella_giannina_molinelli_aristondo.jpg" },
-          "Fe en el Perú": { "logo": "fotos/partido_fe_en_el_peru.jpg", "candidato": "fotos/candidato_alvaro_gonzalo_paz_de_la_barra_freigeiro.jpg" },
-          "Democrático Federal": { "logo": "fotos/partido_partido_democratico_federal.jpg", "candidato": "fotos/candidato_armando_joaquin_masse_fernandez.jpg" },
-          "Salvemos al Perú": { "logo": "fotos/partido_salvemos_al_peru.jpg", "candidato": "fotos/candidato_antonio_ortiz_villano.jpg" },
-          "PRIN": { "logo": "fotos/partido_partido_politico_prin.jpg", "candidato": "fotos/candidato_walter_gilmer_chirinos_purizaga.jpg" },
-          "Trabajadores y Emprendedores del Perú": { "logo": "", "candidato": "" },
-          "Perú Moderno": { "logo": "fotos/partido_peru_moderno.jpg", "candidato": "fotos/candidato_carlos_ernesto_jaico_carranza.jpg" }
-        };
+    <div class="viz-container" id="dashboard-perdidas"></div>
 
-        // 2. DATA LIMPIA Y COMPLETA AL 100%
-        const rawData = [
-            {partido:"Buen Gobierno", dist:"LURÍN", d12:12.92, d13:24.37}, {partido:"Renovación Popular", dist:"LURÍN", d12:13.89, d13:14.07}, {partido:"Fuerza Popular", dist:"LURÍN", d12:20.94, d13:19.99}, {partido:"Juntos por el Perú", dist:"LURÍN", d12:3.90, d13:4.17}, {partido:"OBRAS", dist:"LURÍN", d12:5.69, d13:10.42}, {partido:"País para Todos", dist:"LURÍN", d12:7.36, d13:5.55}, {partido:"Ahora Nación", dist:"LURÍN", d12:3.89, d13:1.82}, {partido:"Primero la Gente", dist:"LURÍN", d12:2.93, d13:0.95}, {partido:"SíCreo", dist:"LURÍN", d12:3.48, d13:1.41}, {partido:"Frente de la Esperanza 2021", dist:"LURÍN", d12:1.21, d13:0.70}, {partido:"Podemos Perú", dist:"LURÍN", d12:0.78, d13:0.75}, {partido:"Cooperación Popular", dist:"LURÍN", d12:0.37, d13:0.16}, {partido:"APP", dist:"LURÍN", d12:0.56, d13:0.46}, {partido:"APRA", dist:"LURÍN", d12:0.62, d13:0.33}, {partido:"Somos Perú", dist:"LURÍN", d12:0.53, d13:0.34}, {partido:"Patriótico del Perú", dist:"LURÍN", d12:0.57, d13:0.41}, {partido:"Perú Primero", dist:"LURÍN", d12:0.49, d13:0.25}, {partido:"Venceremos", dist:"LURÍN", d12:0.23, d13:0.32}, {partido:"Un Camino Diferente", dist:"LURÍN", d12:0.13, d13:0.12}, {partido:"Unido Perú", dist:"LURÍN", d12:0.62, d13:0.26}, {partido:"Perú Libre", dist:"LURÍN", d12:0.16, d13:0.24}, {partido:"Partido Morado", dist:"LURÍN", d12:0.45, d13:0.15}, {partido:"Unidad Nacional", dist:"LURÍN", d12:0.42, d13:0.13}, {partido:"Progresemos", dist:"LURÍN", d12:0.13, d13:0.27}, {partido:"Integridad Democrática", dist:"LURÍN", d12:0.37, d13:0.13}, {partido:"Demócrata Verde", dist:"LURÍN", d12:0.33, d13:0.30}, {partido:"Libertad Popular", dist:"LURÍN", d12:0.39, d13:0.22}, {partido:"Avanza País", dist:"LURÍN", d12:0.10, d13:0.07}, {partido:"Perú Acción", dist:"LURÍN", d12:0.07, d13:0.12}, {partido:"Fuerza y Libertad", dist:"LURÍN", d12:0.04, d13:0.04}, {partido:"Fe en el Perú", dist:"LURÍN", d12:0.10, d13:0.14}, {partido:"Democrático Federal", dist:"LURÍN", d12:0.08, d13:0.08}, {partido:"Salvemos al Perú", dist:"LURÍN", d12:0.04, d13:0.04}, {partido:"PRIN", dist:"LURÍN", d12:0.03, d13:0.06}, {partido:"Trabajadores y Emprendedores del Perú", dist:"LURÍN", d12:0.0, d13:0.29}, {partido:"Perú Moderno", dist:"LURÍN", d12:0.02, d13:0.03},
-            {partido:"Buen Gobierno", dist:"PACHACÁMAC", d12:10.01, d13:30.58}, {partido:"Renovación Popular", dist:"PACHACÁMAC", d12:9.83, d13:14.38}, {partido:"Fuerza Popular", dist:"PACHACÁMAC", d12:15.85, d13:18.95}, {partido:"Juntos por el Perú", dist:"PACHACÁMAC", d12:6.14, d13:10.68}, {partido:"OBRAS", dist:"PACHACÁMAC", d12:12.83, d13:11.29}, {partido:"País para Todos", dist:"PACHACÁMAC", d12:6.81, d13:3.66}, {partido:"Ahora Nación", dist:"PACHACÁMAC", d12:5.04, d13:2.03}, {partido:"Primero la Gente", dist:"PACHACÁMAC", d12:2.76, d13:0.83}, {partido:"SíCreo", dist:"PACHACÁMAC", d12:4.16, d13:1.63}, {partido:"Frente de la Esperanza 2021", dist:"PACHACÁMAC", d12:1.54, d13:0.75}, {partido:"Podemos Perú", dist:"PACHACÁMAC", d12:1.35, d13:0.63}, {partido:"Cooperación Popular", dist:"PACHACÁMAC", d12:0.52, d13:0.20}, {partido:"APP", dist:"PACHACÁMAC", d12:0.56, d13:0.33}, {partido:"APRA", dist:"PACHACÁMAC", d12:0.31, d13:0.08}, {partido:"Somos Perú", dist:"PACHACÁMAC", d12:0.74, d13:0.45}, {partido:"Patriótico del Perú", dist:"PACHACÁMAC", d12:0.84, d13:0.57}, {partido:"Perú Primero", dist:"PACHACÁMAC", d12:0.46, d13:0.14}, {partido:"Venceremos", dist:"PACHACÁMAC", d12:0.46, d13:0.22}, {partido:"Un Camino Diferente", dist:"PACHACÁMAC", d12:0.27, d13:0.12}, {partido:"Unido Perú", dist:"PACHACÁMAC", d12:0.94, d13:0.51}, {partido:"Perú Libre", dist:"PACHACÁMAC", d12:0.36, d13:0.24}, {partido:"Partido Morado", dist:"PACHACÁMAC", d12:0.53, d13:0.18}, {partido:"Unidad Nacional", dist:"PACHACÁMAC", d12:0.25, d13:0.02}, {partido:"Progresemos", dist:"PACHACÁMAC", d12:0.36, d13:0.20}, {partido:"Integridad Democrática", dist:"PACHACÁMAC", d12:0.31, d13:0.14}, {partido:"Demócrata Verde", dist:"PACHACÁMAC", d12:0.37, d13:0.37}, {partido:"Libertad Popular", dist:"PACHACÁMAC", d12:0.21, d13:0.14}, {partido:"Avanza País", dist:"PACHACÁMAC", d12:0.12, d13:0.10}, {partido:"Perú Acción", dist:"PACHACÁMAC", d12:0.17, d13:0.14}, {partido:"Fuerza y Libertad", dist:"PACHACÁMAC", d12:0.17, d13:0.08}, {partido:"Fe en el Perú", dist:"PACHACÁMAC", d12:0.14, d13:0.18}, {partido:"Democrático Federal", dist:"PACHACÁMAC", d12:0.12, d13:0.06}, {partido:"Salvemos al Perú", dist:"PACHACÁMAC", d12:0.04, d13:0.04}, {partido:"PRIN", dist:"PACHACÁMAC", d12:0.05, d13:0.04}, {partido:"Trabajadores y Emprendedores del Perú", dist:"PACHACÁMAC", d12:0.06, d13:0.02}, {partido:"Perú Moderno", dist:"PACHACÁMAC", d12:0.06, d13:0.00},
-            {partido:"Buen Gobierno", dist:"SAN JUAN DE MIRAFLORES", d12:13.45, d13:28.80}, {partido:"Renovación Popular", dist:"SAN JUAN DE MIRAFLORES", d12:16.72, d13:19.56}, {partido:"Fuerza Popular", dist:"SAN JUAN DE MIRAFLORES", d12:15.59, d13:18.95}, {partido:"Juntos por el Perú", dist:"SAN JUAN DE MIRAFLORES", d12:2.24, d13:4.48}, {partido:"OBRAS", dist:"SAN JUAN DE MIRAFLORES", d12:8.33, d13:6.22}, {partido:"País para Todos", dist:"SAN JUAN DE MIRAFLORES", d12:8.99, d13:3.78}, {partido:"Ahora Nación", dist:"SAN JUAN DE MIRAFLORES", d12:5.66, d13:1.29}, {partido:"Primero la Gente", dist:"SAN JUAN DE MIRAFLORES", d12:3.67, d13:0.66}, {partido:"SíCreo", dist:"SAN JUAN DE MIRAFLORES", d12:3.80, d13:0.66}, {partido:"Frente de la Esperanza 2021", dist:"SAN JUAN DE MIRAFLORES", d12:1.42, d13:0.61}, {partido:"Podemos Perú", dist:"SAN JUAN DE MIRAFLORES", d12:0.73, d13:0.43}, {partido:"Cooperación Popular", dist:"SAN JUAN DE MIRAFLORES", d12:0.53, d13:0.10}, {partido:"APP", dist:"SAN JUAN DE MIRAFLORES", d12:0.55, d13:0.39}, {partido:"APRA", dist:"SAN JUAN DE MIRAFLORES", d12:0.63, d13:0.08}, {partido:"Somos Perú", dist:"SAN JUAN DE MIRAFLORES", d12:0.50, d13:0.15}, {partido:"Patriótico del Perú", dist:"SAN JUAN DE MIRAFLORES", d12:0.50, d13:0.20}, {partido:"Perú Primero", dist:"SAN JUAN DE MIRAFLORES", d12:0.47, d13:0.08}, {partido:"Venceremos", dist:"SAN JUAN DE MIRAFLORES", d12:0.33, d13:0.23}, {partido:"Un Camino Diferente", dist:"SAN JUAN DE MIRAFLORES", d12:0.13, d13:0.05}, {partido:"Unido Perú", dist:"SAN JUAN DE MIRAFLORES", d12:0.44, d13:0.06}, {partido:"Perú Libre", dist:"SAN JUAN DE MIRAFLORES", d12:0.22, d13:0.20}, {partido:"Partido Morado", dist:"SAN JUAN DE MIRAFLORES", d12:0.52, d13:0.12}, {partido:"Unidad Nacional", dist:"SAN JUAN DE MIRAFLORES", d12:0.48, d13:0.10}, {partido:"Progresemos", dist:"SAN JUAN DE MIRAFLORES", d12:0.29, d13:0.19}, {partido:"Integridad Democrática", dist:"SAN JUAN DE MIRAFLORES", d12:0.44, d13:0.08}, {partido:"Demócrata Verde", dist:"SAN JUAN DE MIRAFLORES", d12:0.27, d13:0.14}, {partido:"Libertad Popular", dist:"SAN JUAN DE MIRAFLORES", d12:0.22, d13:0.10}, {partido:"Avanza País", dist:"SAN JUAN DE MIRAFLORES", d12:0.16, d13:0.05}, {partido:"Perú Acción", dist:"SAN JUAN DE MIRAFLORES", d12:0.11, d13:0.11}, {partido:"Fuerza y Libertad", dist:"SAN JUAN DE MIRAFLORES", d12:0.10, d13:0.04}, {partido:"Fe en el Perú", dist:"SAN JUAN DE MIRAFLORES", d12:0.08, d13:0.04}, {partido:"Democrático Federal", dist:"SAN JUAN DE MIRAFLORES", d12:0.09, d13:0.08}, {partido:"Salvemos al Perú", dist:"SAN JUAN DE MIRAFLORES", d12:0.04, d13:0.01}, {partido:"PRIN", dist:"SAN JUAN DE MIRAFLORES", d12:0.07, d13:0.02}, {partido:"Trabajadores y Emprendedores del Perú", dist:"SAN JUAN DE MIRAFLORES", d12:0.06, d13:0.68}, {partido:"Perú Moderno", dist:"SAN JUAN DE MIRAFLORES", d12:0.08, d13:0.05}
-        ];
+    <div class="source-note"><strong>Fuente:</strong>ONPE | <strong>Elaboración:</strong> ECData</div>
 
-        // 3. CAMBIO DE COLORES Y AGRUPACIÓN
-        const TOP_PARTIES = ["Buen Gobierno", "Renovación Popular", "Fuerza Popular", "Juntos por el Perú"];
-        const colorScale = d3.scaleOrdinal()
-            .domain([...TOP_PARTIES, "Otros"])
-            .range(["#d4ac0d", "#1f77b4", "#ff7f0e", "#1b5e20", "#bbbbbb"]); // Dorado, Azul, Naranja, Verde Oscuro, Gris
 
-        // 4. INICIALIZAR EL CUSTOM DROPDOWN HTML
-        const trigger = document.getElementById("select-trigger");
-        const triggerContent = document.getElementById("trigger-content");
-        const optionsList = document.getElementById("options-list");
+
+
+
+    <footer class="special-credits-black">    
+        <h3 class="credits-main-title">Créditos</h3>
         
-        const allParties = [...new Set(rawData.map(d => d.partido))].sort();
-        const minorParties = allParties.filter(p => !TOP_PARTIES.includes(p));
+        <div class="credit-block">
+            <span class="credit-role">Investigación y desarrollo</span>
+            <span class="credit-name">Fabrizio Monge</span>
+        </div>
 
-        let liBase = document.createElement("li");
-        liBase.className = "option-item";
-        liBase.innerHTML = `<span> Seleccionar organización política</span>`;
-        liBase.onclick = () => selectOption("Otros", `Seleccionar organización política`, null);
-        optionsList.appendChild(liBase);
+        <div class="credits-logo-container">
+            <img src="https://fabmonge.github.io/Voto_estrategico/fotos/logo_ecdata.png" alt="Logo ECData" onerror="this.style.display='none'">
+            <div class="copyright-text">©2026 Empresa Editora El Comercio. Todos los derechos reservados</div>
+        </div>
+    </footer>
 
-        minorParties.forEach(p => {
-            let li = document.createElement("li");
-            li.className = "option-item";
-            let imgSrc = imageAssets[p] && imageAssets[p].logo ? imageAssets[p].logo : '';
-            let imgHTML = imgSrc ? `<img src="${imgSrc}" class="option-img" />` : `<div style="width:24px;height:24px;border-radius:50%;background:#ccc;"></div>`;
-            li.innerHTML = `${imgHTML} <span>${p}</span>`;
-            li.onclick = () => selectOption(p, p, imgSrc);
-            optionsList.appendChild(li);
-        });
-
-        trigger.onclick = () => optionsList.classList.toggle("open");
-        document.addEventListener('click', (e) => {
-            if (!document.getElementById("custom-select").contains(e.target)) {
-                optionsList.classList.remove("open");
-            }
-        });
-
-        function selectOption(value, text, imgSrc) {
-            let imgHTML = imgSrc ? `<img src="${imgSrc}" class="trigger-icon" />` : '';
-            triggerContent.innerHTML = `${imgHTML} <span>${text}</span>`;
-            optionsList.classList.remove("open");
-            renderChart(value);
-        }
-
-        // 5. LÓGICA DE AGRUPACIÓN (El motor de Datos que recalcula "Otros")
-        function getProcessedData(focusParty) {
-            const processed = [];
-            const districts = ["LURÍN", "PACHACÁMAC", "SAN JUAN DE MIRAFLORES"];
-            
-            districts.forEach(dist => {
-                let sumOtros12 = 0; let sumOtros13 = 0;
-
-                rawData.forEach(d => {
-                    if (d.dist !== dist) return;
-                    
-                    if (TOP_PARTIES.includes(d.partido) || (focusParty !== "Otros" && d.partido === focusParty)) {
-                        processed.push({ dist: dist, partido: d.partido, fecha: "12-Abr", valor: d.d12 });
-                        processed.push({ dist: dist, partido: d.partido, fecha: "13-Abr", valor: d.d13 });
-                    } else if (focusParty === "Otros") {
-                        sumOtros12 += d.d12;
-                        sumOtros13 += d.d13;
-                    }
-                });
-
-                if (focusParty === "Otros") {
-                    processed.push({ dist: dist, partido: "Otros", fecha: "12-Abr", valor: sumOtros12 });
-                    processed.push({ dist: dist, partido: "Otros", fecha: "13-Abr", valor: sumOtros13 });
-                }
-            });
-            return processed;
-        }
-
-        // 6. MOTOR DE RENDERIZADO D3
-        const width = 500, height = 550;
-        const margin = { top: 45, right: 180, bottom: 40, left: 70 };
-        const tooltip = d3.select("#tooltip");
-
-        function relaxLabels(dataArray, yScale, minSpacing = 18) {
-            let positions = dataArray.map(d => ({
-                partido: d.partido,
-                y: yScale(d.valor),
-                origY: yScale(d.valor)
-            })).sort((a, b) => a.y - b.y);
-
-            for (let iter = 0; iter < 10; iter++) {
-                let relaxed = false;
-                for (let i = 0; i < positions.length - 1; i++) {
-                    let diff = positions[i+1].y - positions[i].y;
-                    if (diff < minSpacing) {
-                        let adjust = (minSpacing - diff) / 2;
-                        positions[i].y -= adjust;
-                        positions[i+1].y += adjust;
-                        relaxed = true;
-                    }
-                }
-                if (!relaxed) break;
-            }
-            
-            let dict = {};
-            positions.forEach(p => dict[p.partido] = { relaxedY: p.y, origY: p.origY });
-            return dict;
-        }
-
-        function renderChart(focusParty) {
-            const container = d3.select("#dashboard");
-            container.selectAll("*").remove();
-
-            const data = getProcessedData(focusParty);
-            const dataByDist = d3.group(data, d => d.dist);
-            
-            const maxVal = d3.max(data, d => d.valor);
-            const yScale = d3.scaleLinear()
-                .domain([0, maxVal + (maxVal * 0.1)])
-                .range([height - margin.bottom, margin.top]);
-
-            const xScale = d3.scalePoint()
-                .domain(["12-Abr", "13-Abr"])
-                .range([margin.left, width - margin.right]);
-
-            const line = d3.line()
-                .x(d => xScale(d.fecha))
-                .y(d => yScale(d.valor));
-
-            for (const [dist, distData] of dataByDist) {
-                const panel = container.append("div").attr("class", "panel");
-                panel.append("div").attr("class", "panel-title").text(dist);
-
-                const svg = panel.append("svg")
-                    .attr("viewBox", `0 0 ${width} ${height}`);
-
-                svg.append("g")
-                    .attr("transform", `translate(0,${height - margin.bottom})`)
-                    .call(d3.axisBottom(xScale))
-                    .call(g => g.select(".domain").attr("stroke", "#ddd"))
-                    .call(g => g.selectAll(".tick line").remove())
-                    .call(g => g.selectAll("text").attr("font-size", "14px").attr("fill", "#666").attr("font-weight", "bold"));
-
-                const data12 = distData.filter(d => d.fecha === "12-Abr");
-                const data13 = distData.filter(d => d.fecha === "13-Abr");
-                
-                const safeY12 = relaxLabels(data12, yScale);
-                const safeY13 = relaxLabels(data13, yScale);
-
-                const partyGroup = d3.group(distData, d => d.partido);
-
-                for (const [partido, pathData] of partyGroup) {
-                    const isFocus = partido === focusParty && focusParty !== "Otros";
-                    
-                    const pColor = TOP_PARTIES.includes(partido) ? colorScale(partido) : (partido === "Otros" ? "#bbbbbb" : "#8e44ad");
-                    const pWeight = partido === "Otros" ? 2 : (isFocus ? 6.5 : 3.5);
-
-                    const g = svg.append("g");
-
-                    g.append("path")
-                        .datum(pathData)
-                        .attr("class", "slope-line")
-                        .attr("d", line)
-                        .attr("stroke", pColor)
-                        .attr("stroke-width", pWeight);
-
-                    g.selectAll("circle")
-                        .data(pathData)
-                        .enter().append("circle")
-                        .attr("cx", d => xScale(d.fecha))
-                        .attr("cy", d => yScale(d.valor))
-                        .attr("r", isFocus ? 7 : 5)
-                        .attr("fill", pColor);
-
-                    pathData.forEach(d => {
-                        const isLeft = d.fecha === "12-Abr";
-                        const safeData = isLeft ? safeY12[d.partido] : safeY13[d.partido];
-                        
-                        if (Math.abs(safeData.relaxedY - safeData.origY) > 2) {
-                            g.append("line")
-                                .attr("class", "label-connector")
-                                .attr("x1", xScale(d.fecha))
-                                .attr("y1", safeData.origY)
-                                .attr("x2", isLeft ? xScale(d.fecha) - 8 : xScale(d.fecha) + 8)
-                                .attr("y2", safeData.relaxedY);
-                        }
-
-                        const textGroup = g.append("g")
-                            .attr("transform", `translate(${isLeft ? xScale(d.fecha) - 10 : xScale(d.fecha) + 10}, ${safeData.relaxedY})`);
-
-                        textGroup.append("text")
-                            .attr("class", "data-label")
-                            .attr("fill", pColor)
-                            .attr("text-anchor", isLeft ? "end" : "start")
-                            .attr("y", -5)
-                            .text(d.partido === "Otros" && !isLeft ? "Otros" : `${d.valor.toFixed(1)}%`);
-
-                        if (!isLeft) {
-                            const partner = pathData.find(p => p.fecha !== d.fecha);
-                            const diff = d.valor - partner.valor;
-                            const sign = diff > 0 ? "+" : "";
-                            const diffStr = `(${sign}${diff.toFixed(2)} pp)`;
-
-                            textGroup.append("text")
-                                .attr("class", "pp-label")
-                                .attr("text-anchor", "start")
-                                .attr("y", 7)
-                                .text(diffStr);
-                                
-                            if (d.partido !== "Otros" && imageAssets[d.partido]) {
-                                const imgSize = 28; 
-                                
-                                if (imageAssets[d.partido].logo) {
-                                    textGroup.append("image")
-                                        .attr("href", imageAssets[d.partido].logo)
-                                        .attr("class", "svg-icon")
-                                        .attr("width", imgSize)
-                                        .attr("height", imgSize)
-                                        .attr("x", 65)  
-                                        .attr("y", -14);
-                                }
-                                    
-                                if (imageAssets[d.partido].candidato) {
-                                    textGroup.append("image")
-                                        .attr("href", imageAssets[d.partido].candidato)
-                                        .attr("class", "svg-icon")
-                                        .attr("width", imgSize)
-                                        .attr("height", imgSize)
-                                        .attr("x", 65 + imgSize + 6) 
-                                        .attr("y", -14);
-                                }
-                            }
-                        }
-                    });
-                }
-            }
-        }
-
-        renderChart("Otros");
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
