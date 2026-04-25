@@ -285,14 +285,16 @@ function renderChart(focusParty) {
     }
 }
 
+
 // ==========================================
-// NUEVA LEYENDA DINÁMICA MULTIPLE
+// NUEVA LEYENDA DINÁMICA MULTIPLE (REDUCIDA)
 // ==========================================
 function updateLegend(focusParty) {
     const container = document.getElementById("dynamic-legend");
-    container.innerHTML = "";
+    
+    // Inyectamos el título de la leyenda primero
+    let htmlContent = `<div class="legend-title">Leyenda:</div>`;
 
-    // Creamos la lista de partidos a mostrar: Los fijos + el seleccionado
     let partiesToShow = [...CONFIG.topParties];
     if (focusParty !== "Otros" && !partiesToShow.includes(focusParty)) {
         partiesToShow.push(focusParty);
@@ -305,7 +307,7 @@ function updateLegend(focusParty) {
                 ? colorScale(partyName)
                 : CONFIG.colores.focoSecundario;
 
-            container.innerHTML += `
+            htmlContent += `
                 <div class="legend-card">
                     <div class="legend-photos">
                         <img src="${data.candidato}" class="legend-photo candidate-img" alt="Candidato">
@@ -319,6 +321,8 @@ function updateLegend(focusParty) {
             `;
         }
     });
+    
+    container.innerHTML = htmlContent;
 }
 
 // ==========================================

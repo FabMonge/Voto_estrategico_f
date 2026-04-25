@@ -187,28 +187,37 @@ body, html {
 }
 
 /* =========================================
-   NUEVO: ESTILOS LEYENDA DINÁMICA MULTIPLE
+   ESTILOS LEYENDA DINÁMICA MULTIPLE
    ========================================= */
 .dynamic-legend-container {
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto 30px auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
-    padding: 10px;
+    align-items: center; /* Centra el título con las tarjetas */
+    gap: 10px; /* Menor espacio entre elementos */
+    padding: 5px 10px;
+}
+
+.legend-title {
+    font-family: 'Georgia', serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+    margin-right: 5px;
 }
 
 .legend-card {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px; /* Menos espacio interno */
     background: #fafafa;
     border: 1px solid #eaeaea;
-    padding: 8px 15px 8px 8px;
-    border-radius: 50px; /* Bordes redondeados estilo píldora */
+    padding: 4px 12px 4px 4px; /* Padding reducido, más pegado a la foto */
+    border-radius: 40px; 
     animation: fadeIn 0.4s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Sombra más sutil */
 }
 
 .legend-photos {
@@ -218,16 +227,16 @@ body, html {
 }
 
 .legend-photo {
-    width: 40px;
-    height: 40px;
+    width: 30px; /* REDUCIDO DE 40px A 30px */
+    height: 30px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .legend-photo.party-logo {
-    margin-left: -15px;
+    margin-left: -12px; /* Ajustado al nuevo tamaño */
     z-index: 2;
     background: white;
 }
@@ -240,7 +249,7 @@ body, html {
 
 .legend-party-name {
     font-family: -apple-system, Arial, sans-serif;
-    font-size: 11px;
+    font-size: 10px; /* Ligeramente más pequeño */
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -248,7 +257,7 @@ body, html {
 
 .legend-color-indicator {
     width: 100%;
-    height: 4px;
+    height: 3px; /* Más delgado */
     border-radius: 2px;
     margin-top: 3px;
 }
@@ -259,9 +268,9 @@ body, html {
 }
 
 @media (max-width: 768px) {
-    .legend-card { width: 100%; justify-content: flex-start; border-radius: 8px; padding: 10px; }
+    .legend-title { width: 100%; text-align: left; margin-bottom: 5px; }
+    .legend-card { width: calc(50% - 10px); justify-content: flex-start; } /* Dos columnas en móvil */
 }
-
 /* =========================================
    ESTILOS: GRÁFICO DE BARRAS NEGATIVAS
    ========================================= */
@@ -304,4 +313,18 @@ body, html {
     stroke: #eaeaea;
     stroke-width: 1px;
     stroke-dasharray: 4,4;
+}
+
+/* =========================================
+   NOTA ACLARATORIA (METODOLOGÍA)
+   ========================================= */
+.data-clarification {
+    font-family: 'Georgia', serif; /* Usamos serif para darle un toque editorial distinto */
+    font-size: 13px;
+    color: #444; /* Un poco más oscuro que el #888 de la fuente */
+    font-style: italic;
+    text-align: center;
+    max-width: 1400px;
+    margin: 20px auto 5px auto; /* El 5px abajo lo mantiene pegado a la fuente */
+    padding: 0 20px;
 }
