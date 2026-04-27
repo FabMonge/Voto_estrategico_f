@@ -11,7 +11,26 @@ body, html {
 }
 
 /* =========================================
-   2. HEADER DEL ESPECIAL
+   2. IMAGEN ABRIDORA (HERO IMAGE)
+   ========================================= */
+.mega-nota-container {
+    width: 100%;
+    height: 65vh;
+    position: relative;
+    overflow: hidden;
+    background-color: #111;
+}
+
+.mega-nota-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%; /* Prioriza el rostro del candidato */
+    display: block;
+}
+
+/* =========================================
+   3. HEADER DEL ESPECIAL
    ========================================= */
 .special-header {
     max-width: 900px; 
@@ -21,7 +40,7 @@ body, html {
 }
 
 .kicker { margin-bottom: 25px; display: flex; justify-content: center; align-items: center; }
-.kicker img { height: 35px; width: auto; display: block; max-width: 100%; filter: grayscale(100%) contrast(120%); }
+.kicker img { height: 55px; width: auto; display: block; max-width: 100%; }
 
 .headline {
     font-family: 'Georgia', 'Times New Roman', serif; 
@@ -50,13 +69,14 @@ body, html {
 .social-btn:hover { background-color: #111; color: #ffffff; border-color: #111; transform: translateY(-2px); }
 
 /* =========================================
-   3. TEXTO EDITORIAL
+   4. TEXTO EDITORIAL
    ========================================= */
 .story-text { max-width: 700px; margin: 0 auto 40px auto; padding: 0 20px; }
 .story-text p { font-size: 18px; line-height: 1.6; margin-bottom: 20px; color: #222; }
+.story-text h2 { font-family: 'Georgia', serif; font-size: 26px; font-weight: bold; color: #111; margin-top: 50px; margin-bottom: 20px; }
 
 /* =========================================
-   4. CONTROLES Y DROPDOWN
+   5. CONTROLES Y DROPDOWN
    ========================================= */
 .anio-titulo { font-family: 'Georgia', serif; font-size: 24px; font-weight: bold; color: #111; margin: 40px 0 20px 0; text-align: center; }
 
@@ -92,78 +112,91 @@ body, html {
 .option-img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; border: 1px solid #eaeaea; }
 
 /* =========================================
-   5. DASHBOARD Y D3 (SVG)
+   6. LEYENDA DINÁMICA MULTIPLE
    ========================================= */
-.viz-container { 
-    max-width: 1400px; 
-    margin: 0 auto; 
-    padding: 0 20px; 
+.dynamic-legend-container {
+    max-width: 900px;
+    margin: 0 auto 30px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 10px;
 }
 
-#dashboard {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 30px;
+.legend-title { font-family: 'Georgia', serif; font-size: 14px; font-weight: bold; color: #666; margin-right: 5px; }
+
+.legend-card {
+    display: flex; align-items: center; gap: 8px; background: #fafafa;
+    border: 1px solid #eaeaea; padding: 4px 12px 4px 4px; 
+    border-radius: 40px; animation: fadeIn 0.4s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-/* CENTRADO PERFECTO DE LAS TARJETAS */
+.legend-photos { display: flex; align-items: center; position: relative; }
+.legend-photo { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.legend-photo.party-logo { margin-left: -12px; z-index: 2; background: white; }
+
+.legend-info { display: flex; flex-direction: column; justify-content: center; }
+.legend-party-name { font-family: -apple-system, Arial, sans-serif; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; }
+.legend-color-indicator { width: 100%; height: 3px; border-radius: 2px; margin-top: 3px; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* =========================================
+   7. DASHBOARDS (GRÁFICOS D3)
+   ========================================= */
+.viz-container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+
+#dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; }
+#dashboard-perdidas { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-bottom: 40px; }
+
 .panel { 
-    background: #fafafa; 
-    border: 1px solid #eaeaea; 
-    border-radius: 8px; 
-    padding: 20px; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; /* Centra el contenido (título y SVG) horizontalmente */
+    background: #fafafa; border: 1px solid #eaeaea; border-radius: 8px; 
+    padding: 20px; display: flex; flex-direction: column; align-items: center; 
 }
-
 .panel-title { 
-    text-align: center; 
-    font-weight: 900; 
-    text-transform: uppercase; 
-    font-size: 1.1rem; 
-    letter-spacing: 1px; 
-    margin-bottom: 25px; 
-    color: #111; 
-    width: 100%;
+    text-align: center; font-weight: 900; text-transform: uppercase; 
+    font-size: 1.1rem; letter-spacing: 1px; margin-bottom: 25px; color: #111; width: 100%;
 }
+.panel svg { width: 100%; max-width: 450px; display: block; }
 
-.panel svg {
-    width: 100%;
-    max-width: 450px; /* Limita el ancho máximo para que no se estire de más */
-    display: block;
-}
-
-/* Elementos SVG - NÚMEROS MÁS GRANDES */
+/* SVG: Líneas y Pendientes */
 .slope-line { fill: none; transition: stroke-width 0.2s ease; }
-
-.data-label { 
-    font-size: 16.5px; /* Aumentado de 15px a 16.5px */
-    font-weight: 900; /* Letra más gruesa */
-    dominant-baseline: middle; 
-    font-family: -apple-system, Arial, sans-serif; 
-}
-
-.pp-label { 
-    font-size: 13.5px; /* Aumentado de 12px a 13.5px */
-    fill: #555; 
-    dominant-baseline: middle; 
-    font-weight: 600; 
-    font-family: -apple-system, Arial, sans-serif; 
-}
-
+.data-label { font-size: 16.5px; font-weight: 900; dominant-baseline: middle; font-family: -apple-system, Arial, sans-serif; }
+.pp-label { font-size: 13.5px; fill: #555; dominant-baseline: middle; font-weight: 600; font-family: -apple-system, Arial, sans-serif; }
 .svg-icon { clip-path: circle(50% at 50% 50%); border: 1px solid #ddd; }
 .label-connector { stroke: #c0c0c0; stroke-width: 1.5px; fill: none; stroke-dasharray: 2,2; }
 
-.source-note { font-size: 13px; color: #888; max-width: 1400px; margin: 30px auto 50px auto; padding: 0 20px; text-align: center; font-family: Arial, sans-serif; }
-
+/* SVG: Barras Negativas */
+.bar-negative { transition: opacity 0.2s; }
+.bar-negative:hover { opacity: 0.8; }
+.loss-label { font-size: 14px; font-weight: 900; font-family: -apple-system, Arial, sans-serif; dominant-baseline: middle; }
+.party-name-label { font-size: 11px; font-weight: 700; fill: #333; font-family: -apple-system, Arial, sans-serif; dominant-baseline: middle; text-transform: uppercase; }
+.zero-axis { stroke: #111; stroke-width: 2px; }
+.grid-line { stroke: #eaeaea; stroke-width: 1px; stroke-dasharray: 4,4; }
 
 /* =========================================
-   6. FOOTER INSTITUCIONAL
+   8. NOTAS ACLARATORIAS Y FUENTES
+   ========================================= */
+.data-clarification {
+    font-family: 'Georgia', serif; font-size: 13px; color: #444; 
+    font-style: italic; text-align: center; max-width: 1400px;
+    margin: 20px auto 5px auto; padding: 0 20px;
+}
+
+.source-note { font-size: 13px; color: #888; max-width: 1400px; margin: 30px auto 50px auto; padding: 0 20px; text-align: center; font-family: Arial, sans-serif; }
+
+/* =========================================
+   9. FOOTER INSTITUCIONAL
    ========================================= */
 .special-credits-black { background-color: #111111; color: #ffffff; padding: 70px 20px; text-align: center; margin-top: 60px; }
-.credits-logo-container { margin-top: 40px; }
-.credits-logo-container img { height: 40px; width: auto; display: block; margin: 0 auto; filter: brightness(0) invert(1); }
+.credits-logo-container { margin-top: 50px; }
+.credits-logo-container img { height: 90px; width: auto; display: block; margin: 0 auto; filter: brightness(0) invert(1); }
 .copyright-text { font-size: 11px; color: #777; margin-top: 15px; letter-spacing: 0.5px; font-family: Arial, sans-serif; }
 .credits-main-title { font-family: 'Georgia', serif; font-size: 22px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; margin-top: 0; margin-bottom: 40px; }
 .credit-block { margin-bottom: 25px; display: flex; flex-direction: column; align-items: center; }
@@ -171,9 +204,10 @@ body, html {
 .credit-name { font-family: 'Georgia', serif; font-size: 18px; }
 
 /* =========================================
-   7. RESPONSIVE (MÓVIL)
+   10. MEDIA QUERIES (CONSOLIDADOS)
    ========================================= */
 @media (max-width: 768px) {
+    .mega-nota-container { height: 50vh; }
     .headline { font-size: 42px; letter-spacing: -0.5px; margin-top: 20px;}
     .subheadline { font-size: 20px; margin-bottom: 20px; }
     .story-text p { font-size: 16px; }
@@ -182,152 +216,9 @@ body, html {
     .controls-wrapper { flex-direction: column; align-items: flex-start; width: 100%; }
     .custom-select-container { width: 100%; }
     
-    #dashboard { grid-template-columns: 1fr; gap: 20px; }
+    .legend-title { width: 100%; text-align: left; margin-bottom: 5px; }
+    .legend-card { width: calc(50% - 10px); justify-content: flex-start; } 
+    
+    #dashboard, #dashboard-perdidas { grid-template-columns: 1fr; gap: 20px; }
     .special-credits-black { padding: 40px 15px; }
 }
-
-/* =========================================
-   ESTILOS LEYENDA DINÁMICA MULTIPLE
-   ========================================= */
-.dynamic-legend-container {
-    max-width: 900px;
-    margin: 0 auto 30px auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center; /* Centra el título con las tarjetas */
-    gap: 10px; /* Menor espacio entre elementos */
-    padding: 5px 10px;
-}
-
-.legend-title {
-    font-family: 'Georgia', serif;
-    font-size: 14px;
-    font-weight: bold;
-    color: #666;
-    margin-right: 5px;
-}
-
-.legend-card {
-    display: flex;
-    align-items: center;
-    gap: 8px; /* Menos espacio interno */
-    background: #fafafa;
-    border: 1px solid #eaeaea;
-    padding: 4px 12px 4px 4px; /* Padding reducido, más pegado a la foto */
-    border-radius: 40px; 
-    animation: fadeIn 0.4s ease;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Sombra más sutil */
-}
-
-.legend-photos {
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-.legend-photo {
-    width: 30px; /* REDUCIDO DE 40px A 30px */
-    height: 30px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #fff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.legend-photo.party-logo {
-    margin-left: -12px; /* Ajustado al nuevo tamaño */
-    z-index: 2;
-    background: white;
-}
-
-.legend-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.legend-party-name {
-    font-family: -apple-system, Arial, sans-serif;
-    font-size: 10px; /* Ligeramente más pequeño */
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.legend-color-indicator {
-    width: 100%;
-    height: 3px; /* Más delgado */
-    border-radius: 2px;
-    margin-top: 3px;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-@media (max-width: 768px) {
-    .legend-title { width: 100%; text-align: left; margin-bottom: 5px; }
-    .legend-card { width: calc(50% - 10px); justify-content: flex-start; } /* Dos columnas en móvil */
-}
-/* =========================================
-   ESTILOS: GRÁFICO DE BARRAS NEGATIVAS
-   ========================================= */
-#dashboard-perdidas {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 30px;
-    margin-bottom: 40px;
-}
-
-.bar-negative {
-    transition: opacity 0.2s;
-}
-.bar-negative:hover {
-    opacity: 0.8;
-}
-
-.loss-label {
-    font-size: 14px;
-    font-weight: 900;
-    font-family: -apple-system, Arial, sans-serif;
-    dominant-baseline: middle;
-}
-
-.party-name-label {
-    font-size: 11px;
-    font-weight: 700;
-    fill: #333;
-    font-family: -apple-system, Arial, sans-serif;
-    dominant-baseline: middle;
-    text-transform: uppercase;
-}
-
-.zero-axis {
-    stroke: #111;
-    stroke-width: 2px;
-}
-
-.grid-line {
-    stroke: #eaeaea;
-    stroke-width: 1px;
-    stroke-dasharray: 4,4;
-}
-
-/* =========================================
-   NOTA ACLARATORIA (METODOLOGÍA)
-   ========================================= */
-.data-clarification {
-    font-family: 'Georgia', serif; /* Usamos serif para darle un toque editorial distinto */
-    font-size: 13px;
-    color: #444; /* Un poco más oscuro que el #888 de la fuente */
-    font-style: italic;
-    text-align: center;
-    max-width: 1400px;
-    margin: 20px auto 5px auto; /* El 5px abajo lo mantiene pegado a la fuente */
-    padding: 0 20px;
-}
-
-
-.kicker img { height: 35px; width: auto; display: block; max-width: 100%; }
